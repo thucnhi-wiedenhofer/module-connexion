@@ -1,0 +1,25 @@
+#banner {
+    
+    text-align: center;
+    background-image:url("images/banner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 30em;
+    
+}
+
+.page-header h1{
+    margin-top:3em;
+    font-size:5em;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.52);
+}
+
+.lead {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.52);
+    margin-top: -0.27em;
+    font-size: 2em;
+    font-weight: bold;
+}
+
