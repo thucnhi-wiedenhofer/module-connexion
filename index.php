@@ -69,7 +69,7 @@
               <li><a href="https://github.com/thomaspark/bootswatch">GitHub</a></li>
               
             </ul>
-            <p>Made by <a href="https://thomaspark.co/">Thomas Park</a>.</p>
+            <p>Bootstrap style made by <a href="https://thomaspark.co/">Thomas Park</a>.</p>
             <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/master/LICENSE">MIT License</a>.</p>
             
           </div>
