@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Accueil</title>
 </head>
 <body>
@@ -48,7 +48,7 @@
         <main class="jumbotron">
             <div class="row">
                 <div class="col-lg-6 col-sm-12">
-                    <img src="images/bol.jpg" alt="bol">
+                    <img src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <p>Pour accéder à notre espace membre, veuillez-vous connecter.</p><br/>
@@ -57,8 +57,8 @@
             </div>
         </main>
     </div>
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
