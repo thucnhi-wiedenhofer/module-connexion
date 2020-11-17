@@ -60,7 +60,7 @@
                         <input type="txt" class="form-control" id="prenom"  name="prenom" placeholder="Entrer Prénom">
                         </div>
                          <div class="form-group">
-                        <label for="Nom">Login</label>
+                        <label for="Nom">Nom</label>
                         <input type="txt" class="form-control" id="nom"  name="nom" placeholder="Entrer Nom">
                         </div>
                         <div class="form-group">
@@ -71,7 +71,7 @@
                         <label for="conf-password">Confirmer Password</label>
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Confirmer Password">
                         </div>
-                        <button type="submit" class="btn btn-success">Envoyer</button>
+                        <button type="submit" class="btn btn-success">Modifier</button>
                     </fieldset>
                     </form>
                 </div>
