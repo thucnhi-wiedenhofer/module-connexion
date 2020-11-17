@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +52,7 @@
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-                    <p class="h4">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membre.<br/>
+                    <p class="h4">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
                     <button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/>
                     <p class="h4">ou</p><br/>
