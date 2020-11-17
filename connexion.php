@@ -62,9 +62,11 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         </div>
                         
-                        <button type="submit" class="btn btn-info">Connexion</button>
+                        <button type="submit" class="btn btn-info">Connexion</button><br/>
+                        
                     </fieldset>
                     </form>
+                    
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/plat.jpg" alt="plat">

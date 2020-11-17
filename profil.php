@@ -48,7 +48,7 @@
         <main class="jumbotron">
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
-                    <p class="h4">Remplissez notre formulaire d'inscription</p><br/>
+                    <p class="h4">Vérifier ou modifier votre profil </p><br/>
                     <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
