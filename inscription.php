@@ -71,13 +71,13 @@
                         <label for="conf-password">Confirmer Password</label>
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Confirmer Password">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-success">Envoyer</button>
                     </fieldset>
                     </form>
                 </div>
                 
                 <div class="col-lg-6 col-sm-12">
-                    <img class="img-small" src="assets/images/bol.jpg" alt="bol">
+                    <img class="img-small" src="assets/images/moules.jpg" alt="moules">
                 </div>
                 
             </div>
