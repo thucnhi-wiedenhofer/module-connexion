@@ -1,7 +1,7 @@
 #banner {
     
     text-align: center;
-    background-image:url("assets/images/banner.png");
+    background-image:url("../images/banner.png");
     background-repeat: no-repeat;
     background-size: cover;
     height: 30em;
