@@ -1,3 +1,45 @@
+<?php
+session_start();
+
+
+
+
+
+
+ if (isset($_POST['inscription'])) {
+    $login = $_POST["login"];
+    $password = $_POST["password"];
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $db=mysqli_connect("localhost","root","","moduleconnexion");
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $requete = mysqli_query($db, $read_utilisateur);
+    $result = mysqli_fetch_all($requete);
+
+            if (!empty($result))
+            {
+                $error="Ce login existe déja !";
+            }
+            elseif ($_POST['password'] != $_POST['conf-password'])
+            {
+                $error="Les mots de passe ne sont pas identiques!";
+            }
+            else
+            {
+            $create="INSERT INTO utilisateurs (login, prenom, nom, password)
+                VALUES ('$login','$prenom','$nom','$password')";
+                $query = mysqli_query($db,$create);
+                header('Location:connexion.php');
+            }
+    mysqli_close($db);
+
+}
+
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +92,9 @@
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Remplissez notre formulaire d'inscription</p><br/>
-                    <form action="connexion.php" method="post">
-                    <fieldset>   
+                    <form action="inscription.php" method="post">
+                    <fieldset>
+                        <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>   
                         <div class="form-group">
                         <label for="login">Login</label>
                         <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
