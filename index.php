@@ -16,7 +16,7 @@
                     <div class="col-lg-12">
                     
                         <h1>Let's cook</h1>
-                        <p class="lead">Partageons nos recettes</p>
+                        <p class="h2">Partageons nos recettes</p>
                     </div>
                     
                 </div>
@@ -48,7 +48,7 @@
         <main class="jumbotron">
             <div class="row">
                 <div class="col-lg-6 col-sm-12">
-                    <img src="assets/images/bol.jpg" alt="bol">
+                    <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <p>Pour accéder à notre espace membre, veuillez-vous connecter.</p><br/>
