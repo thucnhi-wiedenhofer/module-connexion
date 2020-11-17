@@ -54,9 +54,9 @@
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
-                    <button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/>
+                    <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
                     <p class="h4">ou</p><br/>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button>
+                    <a href="inscription.php"><button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button></a>
                 </div>
             </div>
         </main>
