@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Remplissez notre formulaire d'inscription</p><br/>
-                    <form action="inscription.php" method="post">
+                    <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
                         <label for="login">Login</label>
