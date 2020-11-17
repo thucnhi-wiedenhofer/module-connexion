@@ -57,6 +57,8 @@
             </div>
         </main>
     </div>
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
