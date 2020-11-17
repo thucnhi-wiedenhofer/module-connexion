@@ -50,12 +50,30 @@
                 <div class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
-                <div class="col-lg-6 col-sm-12">
-                    <p>Pour accéder à notre espace membre, veuillez-vous connecter.</p><br/>
-                    <button type="button" class="btn btn-success btn-lg">Connexion</button>
+                <div class="col-lg-6 col-sm-12"><br/>
+                    <p class="h4">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membre.<br/>
+                     Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
+                    <button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/>
+                    <p class="h4">ou</p><br/>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button>
                 </div>
             </div>
         </main>
+        <footer id="footer">
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="list-unstyled">
+              <li class="float-lg-right"><a href="#top">Back to top</a></li>
+              
+              <li><a href="https://github.com/thomaspark/bootswatch">GitHub</a></li>
+              
+            </ul>
+            <p>Made by <a href="https://thomaspark.co/">Thomas Park</a>.</p>
+            <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/master/LICENSE">MIT License</a>.</p>
+            
+          </div>
+        </div>
+      </footer>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
