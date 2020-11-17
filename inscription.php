@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +72,7 @@
                         <label for="conf-password">Confirmer Password</label>
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Confirmer Password">
                         </div>
-                        <button type="submit" class="btn btn-success">Envoyer</button>
+                        <button type="submit" class="btn btn-success" name="inscription">Envoyer</button>
                     </fieldset>
                     </form>
                 </div>

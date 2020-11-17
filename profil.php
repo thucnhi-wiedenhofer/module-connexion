@@ -1,3 +1,18 @@
+<?php
+session_start();
+$db=mysqli_connect("localhost","root","","moduleconnexion");
+$create="INSERT INTO utilisateurs (login, prenom, nom, password)
+ VALUES ('".$login."','".$prenom."','".$nom."','".$password."')";
+
+$update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $newNom, password = $newPassword
+ WHERE id= $id";
+
+$read= "SELECT * FROM utilisateurs WHERE id=$id";
+
+$delete= "DELETE FROM utitlisateurs WHERE id=$id";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
