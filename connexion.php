@@ -50,16 +50,21 @@
             <div class="row">
                 
                 <div class="col-lg-6 col-sm-12"><br/>
-                    <form class="formulaire" method="POST" >
-               
-                        <label for="login">Identifiant:</label><br>
-                        <input type="text" placeholder="Entrer votre identifiant" id="login" name="login"><br><br>
-                        <label for="password">Mot de passe:</label><br>
-                        <input type="password" placeholder="Entrer votre mot de passe" id="password" name="password" required><br/><br/>
-               
-                        <button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/>
+                <form action="inscription.php" method="post">
+                    <fieldset>   
+                        <div class="form-group">
+                        <label for="login">Login</label>
+                        <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
+                        </div>
+                                               
+                        <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-info">Connexion</button>
+                    </fieldset>
                     </form>
-                   
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/plat.jpg" alt="plat">
