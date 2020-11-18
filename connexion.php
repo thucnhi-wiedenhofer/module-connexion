@@ -41,45 +41,28 @@ session_start();
                     mysqli_close($db);
                 }
 }
-elseif (isset($_POST['administration']))
-{
+elseif(isset($_POST['administration'])) {
     function valid_data($data){
         $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
         $data = stripslashes($data);/*enlève les slashs dans les textes*/
         $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
         return $data;
-    }
-/*on récupère les valeurs login ,password du formulaire et on y applique
-les filtres de la fonction valid_data*/
-$login = valid_data($_POST["login"]);
-$password = $_POST["password"];
-
-
-$db=mysqli_connect("localhost","root","","moduleconnexion");
-/*on prépare une requête pour vérifier les données de l'utilisateur */
-$read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
-$requete = mysqli_query($db, $read_utilisateur);
-$result = mysqli_fetch_all($requete);
-
-    if (empty($result))
-    {
-        $erroradm="Ce login n'existe pas!";
-        header('Location:connexion.php');
-    }
-    elseif (!empty($result) && password_verify('admin', $result[0][4]))//vérification de password
-        { 
-            $_SESSION['login']="admin";
-            $_SESSION['nom']="admin";
-            $_SESSION['prenom']="admin";
-            mysqli_close($db);
-            header('Location:admin.php');
-        } 
-    else 
-        {
-            $erroradm='Le mot de passe est invalide.';
-            
-            header('Location:connexion.php');
         }
+
+        /*on récupère les valeurs login ,password du formulaire et on y applique
+        les filtres de la fonction valid_data*/
+        if(isset($_POST["login"]) && isset($_POST["password"])){
+            $login = valid_data($_POST["login"]);
+            $password = valid_data($_POST["password"]);
+            if ($login==="admin" && $password==="admin"){
+            header('Location:admin.php');
+            }
+            else {
+            $error_adm = "Vous n'avez pas accés à cet Espace administration";
+            }
+    }
+
+   
 }
 
 
@@ -167,12 +150,9 @@ $result = mysqli_fetch_all($requete);
         
             <article class="jumbotron">  
                 <h2>Administration</h2> 
-                <form action="connexion.php" method="post">
-                    
+                 <?php if(isset($error_adm)){echo '<p class="h4 text-warning">'.$error_adm.'</p>'; } ?>
+                <form action="connexion.php" method="post"> 
                     <fieldset>
-
-                    <?php if(!empty($erroradm)){echo '<p class="h4 text-warning">'.$erroradm.'</p>'; } ?>
-
                         <div class="row">    
                             <div class="form-group col-lg-4 col-sm-12">
                             <label for="login">Login</label>

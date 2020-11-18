@@ -1,6 +1,6 @@
 <?php
 session_start();
-$id=$_SESSION['id'];
+
 if (isset($_POST['connexion']) && isset($_SESSION['id'])) {
     
     $id=$_SESSION['id'];
@@ -15,7 +15,7 @@ if (isset($_POST['connexion']) && isset($_SESSION['id'])) {
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
     $read_utilisateur_id= "SELECT * FROM utilisateurs WHERE id=$id";
     $requete = mysqli_query($db, $read_utilisateur_id);
-    $result = mysqli_fetch_all($requete);
+    $result = mysqli_fetch_assoc($requete);
 
             if (!empty($result))
             {
