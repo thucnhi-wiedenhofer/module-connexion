@@ -12,25 +12,23 @@ session_start();
                 $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
                 return $data;
             }
-    /*on récupère les valeurs login ,password, prenom, nom du formulaire et on y applique
+    /*on récupère les valeurs login ,password du formulaire et on y applique
      les filtres de la fonction valid_data*/
     $login = valid_data($_POST["login"]);
     $password = $_POST["password"];
         
 
-    $password = password_hash($password, PASSWORD_DEFAULT);/*Crypte le mot de passe*/
-    $db=mysqli_connect("localhost","root","","moduleconnexion");
-    /*on prépare une requête pour récupérer les données de l'utilisateur qui a rempli
-     le formulaire, afin de vérifier que le login n'existe pas déja dans la table*/
+      $db=mysqli_connect("localhost","root","","moduleconnexion");
+    /*on prépare une requête pour vérifier les données de l'utilisateur */
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
     $requete = mysqli_query($db, $read_utilisateur);
     $result = mysqli_fetch_all($requete);
-    $pass= $result[0][4];
+    
             if (empty($result))
             {
                 $error="Ce login n'existe pas!";
             }
-            elseif (password_verify($password, $pass))
+            elseif (password_verify($password, $result[0][4]))//vérification de password
                 { 
                     $_SESSION['login']=$result[0][1];
                     $_SESSION['nom']=$result[0][3];
@@ -43,6 +41,47 @@ session_start();
                     mysqli_close($db);
                 }
 }
+elseif (isset($_POST['administration']))
+{
+    function valid_data($data){
+        $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
+        $data = stripslashes($data);/*enlève les slashs dans les textes*/
+        $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
+        return $data;
+    }
+/*on récupère les valeurs login ,password du formulaire et on y applique
+les filtres de la fonction valid_data*/
+$login = valid_data($_POST["login"]);
+$password = $_POST["password"];
+
+
+$db=mysqli_connect("localhost","root","","moduleconnexion");
+/*on prépare une requête pour vérifier les données de l'utilisateur */
+$read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+$requete = mysqli_query($db, $read_utilisateur);
+$result = mysqli_fetch_all($requete);
+
+    if (empty($result))
+    {
+        $erroradm="Ce login n'existe pas!";
+        header('Location:connexion.php');
+    }
+    elseif (!empty($result) && password_verify('admin', $result[0][4]))//vérification de password
+        { 
+            $_SESSION['login']="admin";
+            $_SESSION['nom']="admin";
+            $_SESSION['prenom']="admin";
+            mysqli_close($db);
+            header('Location:admin.php');
+        } 
+    else 
+        {
+            $erroradm='Le mot de passe est invalide.';
+            
+            header('Location:connexion.php');
+        }
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -100,7 +139,9 @@ session_start();
                 <h2>Espace membres</h2>
                 <form action="connexion.php" method="post">
                     <fieldset>
-                    <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>   
+
+                    <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>  
+
                         <div class="form-group">
                         <label for="login">Login</label>
                         <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
@@ -126,9 +167,12 @@ session_start();
         
             <article class="jumbotron">  
                 <h2>Administration</h2> 
-                <form action="admin.php" method="post">
+                <form action="connexion.php" method="post">
                     
                     <fieldset>
+
+                    <?php if(!empty($erroradm)){echo '<p class="h4 text-warning">'.$erroradm.'</p>'; } ?>
+
                         <div class="row">    
                             <div class="form-group col-lg-4 col-sm-12">
                             <label for="login">Login</label>
@@ -141,7 +185,7 @@ session_start();
                             </div>
                             <div class="form-group col-lg-12 col-sm-12">
                             
-                            <button type="submit" class="btn btn-info">Connexion</button>
+                            <button type="submit" class="btn btn-info" name="administration">Connexion</button>
                             </div>
                         </div>
                     </fieldset>
