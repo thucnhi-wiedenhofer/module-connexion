@@ -1,8 +1,88 @@
 <?php
 session_start();
+$id=$_SESSION['id'];
+if (isset($_POST['connexion']) && isset($_SESSION['id'])) {
+    
+    $id=$_SESSION['id'];
+    
+    function valid_data($data){
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
+
+    $db=mysqli_connect("localhost","root","","moduleconnexion");    
+    $read_utilisateur_id= "SELECT * FROM utilisateurs WHERE id=$id";
+    $requete = mysqli_query($db, $read_utilisateur_id);
+    $result = mysqli_fetch_all($requete);
+
+            if (!empty($result))
+            {
+                $error="Il y a une erreur de lecture de vos données!";
+                 header('Location:connexion.php');
+            }
+            else
+            {
+            $login = $result['login'];
+            $prenom = $result['prenom'];
+            $nom = $result['nom'];
+            $password = $result['password'];
+            }
+             mysqli_close($db);
+           
+
+            $create="INSERT INTO utilisateurs (login, prenom, nom, password)
+                VALUES ('$login','$prenom','$nom','$password')";
+                $query = mysqli_query($db,$create);
+                header('Location:connexion.php');
+            }
+elseif (isset($_POST['modification']) && isset($_SESSION['id'])) {
+   
+            $login = valid_data($_POST["login"]);
+            if( $verify = password_verify($plaintext_password, $hash); 
+            $password = $_POST["password"];
+            $prenom = valid_data($_POST['prenom']);
+            $nom = valid_data($_POST['nom']);
+
+    
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $db=mysqli_connect("localhost","root","","moduleconnexion");
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $requete = mysqli_query($db, $read_utilisateur);
+    $result = mysqli_fetch_all($requete);
+
+            if (!empty($result))
+            {
+                $error="Ce login existe déja !";
+            }
+            elseif ($_POST['password'] != $_POST['conf-password'])
+            {
+                $error="Les mots de passe ne sont pas identiques!";
+            }
+            else
+            {
+            $create="INSERT INTO utilisateurs (login, prenom, nom, password)
+                VALUES ('$login','$prenom','$nom','$password')";
+                $query = mysqli_query($db,$create);
+                header('Location:connexion.php');
+            }
+    mysqli_close($db);
+
+}
+}
+   
+
+}
+$password = password_hash($password, PASSWORD_DEFAULT);
+$login = valid_data($_POST["login"]);
+    $password = $_POST["password"];
+    $prenom = valid_data($_POST['prenom']);
+    $nom = valid_data($_POST['nom']);
+
 $db=mysqli_connect("localhost","root","","moduleconnexion");
-$create="INSERT INTO utilisateurs (login, prenom, nom, password)
- VALUES ('".$login."','".$prenom."','".$nom."','".$password."')";
+
 
 $update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $newNom, password = $newPassword
  WHERE id= $id";

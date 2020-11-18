@@ -44,7 +44,9 @@ session_start();
             $create="INSERT INTO utilisateurs (login, prenom, nom, password)
                 VALUES ('$login','$prenom','$nom','$password')";
                 $query = mysqli_query($db,$create);
-                header('Location:connexion.php');
+                /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
+                if($query){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom;}
+                header('Location:index.php');
             }
     mysqli_close($db);
 
@@ -88,16 +90,18 @@ session_start();
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Home
-                    <span class="sr-only">(current)</span>
+                    
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="connexion.php">Connexion</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inscription.php">Inscription</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="inscription.php">Inscription
+                    <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 </ul>  
             </div>
