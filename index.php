@@ -57,10 +57,10 @@ if(isset($_POST['session_fin']))
                 <?php 
                 if(isset($_SESSION['login']) AND !empty($_SESSION['login']))
                 {
-                    echo '<li class="nav-item">
-                    <p>Vous êtes connecté(e)</p>    
+                    echo '<li class="nav-item active align-right">
+                    <span class="nav-link">Vous êtes connecté(e)</span>    
                     </li>';
-                    echo '<li class="nav-item">
+                    echo '<li class="nav-item align-right">
                     <form action="index.php" method="post">                                            
                         <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
                     </form>
@@ -81,7 +81,7 @@ if(isset($_POST['session_fin']))
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                     echo '<a href="profil.php"><button type="button" class="btn btn-primary btn-lg btn-block">Consulter</button></a>';
                 }else{
-                    echo '<p class="h4">Vous \'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
+                    echo '<p class="h5">Vous \'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
                     <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
                     <p class="h4">ou</p><br/>
