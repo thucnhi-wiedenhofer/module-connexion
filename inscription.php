@@ -11,7 +11,7 @@ session_start();
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
-                return $$data;
+                return $data;
             }
 
     $login = valid_data($_POST["login"]);
