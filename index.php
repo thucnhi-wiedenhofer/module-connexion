@@ -1,5 +1,12 @@
 <?php
 session_start();
+if(isset($_POST['session_fin']))
+{
+    //enlève les variables de la session
+    session_unset();
+    //détruit la session
+    session_destroy();
+}
 
 ?>
 
@@ -47,6 +54,19 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="inscription.php">Inscription</a>
                 </li>
+                <?php 
+                if(isset($_SESSION['login']) AND !empty($_SESSION['login']))
+                {
+                    echo '<li class="nav-item">
+                    <p>Vous êtes connecté(e)</p>    
+                    </li>';
+                    echo '<li class="nav-item">
+                    <form action="index.php" method="post">                                            
+                        <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
+                    </form>
+                    </li>';
+                }
+                ?>
                 </ul>  
             </div>
         </nav>
