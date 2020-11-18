@@ -81,7 +81,7 @@ if(isset($_POST['session_fin']))
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                     echo '<a href="profil.php"><button type="button" class="btn btn-primary btn-lg btn-block">Consulter</button></a>';
                 }else{
-                    echo '<p class="h5">Vous \'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
+                    echo '<p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
                     <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
                     <p class="h4">ou</p><br/>
