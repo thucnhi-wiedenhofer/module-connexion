@@ -1,3 +1,50 @@
+<?php
+session_start();
+
+
+/*routine de validation des données*/
+
+
+ if (isset($_POST['connexion'])) {
+    function valid_data($data){
+                $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
+                $data = stripslashes($data);/*enlève les slashs dans les textes*/
+                $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
+                return $data;
+            }
+    /*on récupère les valeurs login ,password, prenom, nom du formulaire et on y applique
+     les filtres de la fonction valid_data*/
+    $login = valid_data($_POST["login"]);
+    $password = $_POST["password"];
+        
+
+    $password = password_hash($password, PASSWORD_DEFAULT);/*Crypte le mot de passe*/
+    $db=mysqli_connect("localhost","root","","moduleconnexion");
+    /*on prépare une requête pour récupérer les données de l'utilisateur qui a rempli
+     le formulaire, afin de vérifier que le login n'existe pas déja dans la table*/
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $requete = mysqli_query($db, $read_utilisateur);
+    $result = mysqli_fetch_all($requete);
+    $pass= $result[0][4];
+            if (empty($result))
+            {
+                $error="Ce login n'existe pas!";
+            }
+            elseif (password_verify($password, $pass))
+                { 
+                    $_SESSION['login']=$result[0][1];
+                    $_SESSION['nom']=$result[0][3];
+                    $_SESSION['prenom']=$result[0][2];
+                    header('Location:index.php');
+                } 
+            else 
+                {
+                    $error='Le mot de passe est invalide.';
+                    mysqli_close($db);
+                }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,8 +98,9 @@
                 
                 <div class="col-lg-6 col-sm-12"><br/>
                 <h2>Espace membres</h2>
-                <form action="profil.php" method="post">
-                    <fieldset>   
+                <form action="connexion.php" method="post">
+                    <fieldset>
+                    <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>   
                         <div class="form-group">
                         <label for="login">Login</label>
                         <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
@@ -63,7 +111,7 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         </div>
                         
-                        <button type="submit" class="btn btn-info">Connexion</button><br/>
+                        <button type="submit" class="btn btn-info" name="connexion">Connexion</button><br/>
                         
                     </fieldset>
                     </form>
