@@ -7,10 +7,20 @@ session_start();
 
 
  if (isset($_POST['inscription'])) {
-    $login = $_POST["login"];
+    function valid_data($data){
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $$data;
+            }
+
+    $login = valid_data($_POST["login"]);
     $password = $_POST["password"];
-    $prenom = $_POST['prenom'];
-    $nom = $_POST['nom'];
+    $prenom = valid_data($_POST['prenom']);
+    $nom = valid_data($_POST['nom']);
+
+    
+
     $password = password_hash($password, PASSWORD_DEFAULT);
     $db=mysqli_connect("localhost","root","","moduleconnexion");
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
