@@ -3,26 +3,29 @@ session_start();
 
 
 
-
+/*routine de validation des données*/
 
 
  if (isset($_POST['inscription'])) {
     function valid_data($data){
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
+                $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
+                $data = stripslashes($data);/*enlève les slashs dans les textes*/
+                $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
                 return $data;
             }
-
+    /*on récupère les valeurs login ,password, prenom, nom du formulaire et on y applique
+     les filtres de la fonction valid_data*/
     $login = valid_data($_POST["login"]);
     $password = $_POST["password"];
     $prenom = valid_data($_POST['prenom']);
-    $nom = valid_data($_POST['nom']);
+    $nom = valid_data($_POST['nom']); 
 
     
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $password = password_hash($password, PASSWORD_DEFAULT);/*Crypte le mot de passe*/
     $db=mysqli_connect("localhost","root","","moduleconnexion");
+    /*on prépare une requête pour récupérer les données de l'utilisateur qui a rempli
+     le formulaire, afin de vérifier que le login n'existe pas déja dans la table*/
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
     $requete = mysqli_query($db, $read_utilisateur);
     $result = mysqli_fetch_all($requete);
@@ -37,6 +40,7 @@ session_start();
             }
             else
             {
+                /*si le login est nouveau, on insert les données dans la base moduleconnexion,table utilisateurs*/
             $create="INSERT INTO utilisateurs (login, prenom, nom, password)
                 VALUES ('$login','$prenom','$nom','$password')";
                 $query = mysqli_query($db,$create);
@@ -104,6 +108,7 @@ session_start();
                     <p class="h4">Remplissez notre formulaire d'inscription</p><br/>
                     <form action="inscription.php" method="post">
                     <fieldset>
+                       <!-- envoyer un message d'erreur si login existe déja ou si password invalide-->
                         <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>   
                         <div class="form-group">
                         <label for="login">Login</label>
