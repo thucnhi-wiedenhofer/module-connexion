@@ -42,19 +42,10 @@ session_start();
                 }
 }
 elseif(isset($_POST['administration'])) {
-    function valid_data($data){
-        $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
-        $data = stripslashes($data);/*enlève les slashs dans les textes*/
-        $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
-        return $data;
-        }
-
-        /*on récupère les valeurs login ,password du formulaire et on y applique
-        les filtres de la fonction valid_data*/
-        if(isset($_POST["login"]) && isset($_POST["password"])){
-            $login = valid_data($_POST["login"]);
-            $password = valid_data($_POST["password"]);
-            if ($login==="admin" && $password==="admin"){
+    
+            if ($_POST['login']=="admin" && $_POST['password']=="admin"){
+            $_SESSION['login']="admin";
+            $_SESSION['password']="admin";
             header('Location:admin.php');
             }
             else {
@@ -62,8 +53,6 @@ elseif(isset($_POST['administration'])) {
             }
     }
 
-   
-}
 
 
 ?>

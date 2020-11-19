@@ -2,38 +2,19 @@
 session_start();
 
 /*routine de validation des données*/
-
-   
-    if(isset($_POST['administration'])) {
-        function valid_data($data){
-            $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
-            $data = stripslashes($data);/*enlève les slashs dans les textes*/
-            $data = htmlspecialchars($data);/*enlève les balises html comme ""<>...*/
-            return $data;
-            }
-    
-            /*on récupère les valeurs login ,password du formulaire et on y applique
-            les filtres de la fonction valid_data*/
-            if(isset($_POST["login"]) && isset($_POST["password"])){
-                $login = valid_data($_POST["login"]);
-                $password = valid_data($_POST["password"]);
-
-                if ($login==="admin" && $password==="admin"){ 
-                
+        
+            if($_SESSION['login']=="admin" && $_SESSION['password']=="admin"){
                 $db=mysqli_connect("localhost","root","","moduleconnexion");
-               
-                $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
-                $requete = mysqli_query($db, $read_utilisateur);
+                $requete= "SELECT * FROM utilisateurs";
+                $query = mysqli_query($db, $requete);
                 mysqli_close($db);
 
-                }
-                else {
-                $error_adm = "Vous n'avez pas accés à cet Espace administration";
-                header('location:connexion.php');
-                }                
-            }        
-    }
-
+            }
+            else {
+            $error_adm = "Vous n'avez pas accés à cet Espace administration";
+            header('location:connexion.php');
+            }                
+           
     ?>
 
 <!DOCTYPE html>
@@ -99,7 +80,7 @@ session_start();
                     <tbody>
                     <?php
                         echo "<tr>";
-                        while (($resultats = mysqli_fetch_assoc($requete)) != null)
+                        while (($resultats = mysqli_fetch_assoc($query)) != null)
                         {
                             echo "<td>".$resultats['id']."</td>";
                             echo "<td>".$resultats['login']."</td>";

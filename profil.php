@@ -11,7 +11,6 @@ function valid_data($data){
 if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
     
     $login=$_SESSION['login'];
-    
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
     $requete = mysqli_query($db, $read_utilisateur);
@@ -25,49 +24,43 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
             }
             else
             {
+            $_SESSION['id']=$result['id'];
+            $id= $result['id'];
             $login = $result['login'];
             $prenom = $result['prenom'];
             $nom = $result['nom'];
             $password = $result['password'];
-            }
-            
-           
-              
-}elseif (isset($_POST['update']) && isset($_SESSION['login'])){
-    
-    $login = valid_data($_POST["login"]);
-    $prenom = valid_data($_POST['prenom']);
-    $nom = valid_data($_POST['nom']);
-    $new_Password = $_POST["password"];
-    $new_Password = password_hash($new_Password, PASSWORD_DEFAULT);
-    
-   
-   
-
-$db=mysqli_connect("localhost","root","","moduleconnexion");
-
-
-$update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $newNom, password = $newPassword
- WHERE id= $id";
+            $_POST = array(); 
+            }                         
 }
-
-/*
-$password = password_hash($password, PASSWORD_DEFAULT);
-$login = valid_data($_POST["login"]);
-    $password = $_POST["password"];
+elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']==$_POST['id'] ) {
+    
+    $id= $_POST['id'];
+    $login = $_SESSION['login'];
     $prenom = valid_data($_POST['prenom']);
     $nom = valid_data($_POST['nom']);
+    $new_Password = $_POST['password'];
+    $new_Password = password_hash($new_Password, PASSWORD_DEFAULT);
 
-$db=mysqli_connect("localhost","root","","moduleconnexion");
-
-
-$update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $newNom, password = $newPassword
- WHERE id= $id";
-
-$read= "SELECT * FROM utilisateurs WHERE id=$id";
-
-$delete= "DELETE FROM utitlisateurs WHERE id=$id";*/
-
+    if ($_POST['password'] != $_POST['conf-password']){
+                $error="Les mots de passe ne sont pas identiques!";
+            }
+            else
+            {
+                $db=mysqli_connect("localhost","root","","moduleconnexion");
+                // on update les données  de l'utilisateur dans la base moduleconnexion,table utilisateurs
+                $update= 'UPDATE utilisateurs SET id = $id, login = "$login", prenom = "$prenom", nom = "$nom", password = "$new_Password"
+                WHERE login= "$login" ';
+                $query = mysqli_query($db,$update);
+                /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
+               if($query){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom; header('Location:index.php');}
+                else{echo "Erreur en modifiant vos informations";}
+            }
+    mysqli_close($db);
+  
+}else{
+    header('Location:index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -124,6 +117,7 @@ $delete= "DELETE FROM utitlisateurs WHERE id=$id";*/
                     <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
+                            
                         <label for="login">Login</label>
                         <input type="txt" class="form-control" id="login"  name="login"  value="<?php echo $login; ?>">
                         </div>
@@ -137,12 +131,13 @@ $delete= "DELETE FROM utitlisateurs WHERE id=$id";*/
                         </div>
                         <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="ancien ou nouveau password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre password ou un nouveau.">
                         </div>
                         <div class="form-group">
                         <label for="conf-password">Confirmer Password</label>
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique">
                         </div>
+                        <input type="hidden" name="id" value="<?php echo (int)$id; ?>">
                         <button type="submit" class="btn btn-success" name="update">Modifier</button>
                     </fieldset>
                     </form>
