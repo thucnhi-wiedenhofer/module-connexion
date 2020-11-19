@@ -38,6 +38,10 @@ session_start();
             {
                 $error="Les mots de passe ne sont pas identiques!";
             }
+            elseif(empty($_POST['password']))
+            {
+                $error="tous les champs doivent être remplis!";
+            }
             else
             {
                 /*si le login est nouveau, on insert les données dans la base moduleconnexion,table utilisateurs*/
@@ -46,7 +50,7 @@ session_start();
                 $query = mysqli_query($db,$create);
                 /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
                 if($query){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom;}
-                header('Location:index.php');
+                header('Location:connexion.php');
             }
     mysqli_close($db);
 

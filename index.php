@@ -1,15 +1,3 @@
-<?php
-session_start();
-if(isset($_POST['session_fin']))
-{
-    //enlève les variables de la session
-    session_unset();
-    //détruit la session
-    session_destroy();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,19 +42,7 @@ if(isset($_POST['session_fin']))
                 <li class="nav-item">
                     <a class="nav-link" href="inscription.php">Inscription</a>
                 </li>
-                <?php 
-                if(isset($_SESSION['login']) AND !empty($_SESSION['login']))
-                {
-                    echo '<li class="nav-item active align-right">
-                    <span class="nav-link">Vous êtes connecté(e)</span>    
-                    </li>';
-                    echo '<li class="nav-item align-right">
-                    <form action="index.php" method="post">                                            
-                        <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
-                    </form>
-                    </li>';
-                }
-                ?>
+                
                 </ul>  
             </div>
         </nav>
@@ -76,19 +52,13 @@ if(isset($_POST['session_fin']))
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-                <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin"){
-                    echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
-                    echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
-                    echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
-                }
-                else{
-                    echo '<p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
+               
+                    <p class="h5">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
                     <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
                     <p class="h4">ou</p><br/>
-                    <a href="inscription.php"><button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button></a>';
-                }
-                ?>
+                    <a href="inscription.php"><button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button></a>
+                
                     
                 </div>
             </div>

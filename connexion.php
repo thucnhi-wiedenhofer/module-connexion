@@ -1,6 +1,12 @@
 <?php
 session_start();
-
+if(isset($_POST['session_fin']))
+{
+    //enlève les variables de la session
+    session_unset();
+    //détruit la session
+    session_destroy();
+}
 
 /*routine de validation des données*/
 
@@ -33,7 +39,7 @@ session_start();
                     $_SESSION['login']=$result[0][1];
                     $_SESSION['nom']=$result[0][3];
                     $_SESSION['prenom']=$result[0][2];
-                    header('Location:index.php');
+                   
                 } 
             else 
                 {
@@ -94,13 +100,27 @@ elseif(isset($_POST['administration'])) {
                     
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="connexion.php">Connexion</a>
-                    <span class="sr-only">(current)</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inscription.php">Inscription</a>
-                </li>
+                <?php  if(isset($_SESSION['login']) && !empty($_SESSION['login']))
+                    {
+                        echo '<li class="nav-item active align-right">
+                        <span class="nav-link">Vous êtes connecté(e)</span>    
+                        </li>';
+                        echo '<li class="nav-item align-right">
+                        <form action="connexion.php" method="post">                                            
+                            <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
+                        </form>
+                        </li>';
+                    } else{
+                        echo '<li class="nav-item active">
+                        <a class="nav-link" href="connexion.php">Connexion</a>
+                        <span class="sr-only">(current)</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscription.php">Inscription</a>
+                    </li>';
+                    }
+                    ?>
+               
                 </ul>  
             </div>
         </nav>
@@ -108,26 +128,38 @@ elseif(isset($_POST['administration'])) {
             <div class="row">
                 
                 <div class="col-lg-6 col-sm-12"><br/>
-                <h2>Espace membres</h2>
-                <form action="connexion.php" method="post">
-                    <fieldset>
+                <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" && !isset($_SESSION['update'])){
+                    echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
+                    echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
+                    echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
+                    }
+                    elseif(isset($_SESSION['login']) && $_SESSION['login']!="admin" && $_SESSION['update']="Ok"){
+                        echo '<h2>Espace membres</h2>';
+                        echo '<p class="h5">Vos informations ont bien été modifiées.</p>';
+                    }
+                    else{
+                        echo '<h2>Espace membres</h2>
+                        <form action="connexion.php" method="post">
+                            <fieldset>';
 
-                    <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?>  
+                           if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; }  
 
-                        <div class="form-group">
-                        <label for="login">Login</label>
-                        <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
-                        </div>
-                                               
-                        <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-info" name="connexion">Connexion</button><br/>
-                        
-                    </fieldset>
-                    </form>
+                               echo '<div class="form-group">
+                                <label for="login">Login</label>
+                                <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
+                                </div>
+                                                    
+                                <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                </div>
+                                
+                                <button type="submit" class="btn btn-info" name="connexion">Connexion</button><br/>
+                                
+                            </fieldset>
+                            </form>';
+                    }
+                    ?>
                     
                 </div>
                 <div class="col-lg-6 col-sm-12">

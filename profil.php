@@ -8,7 +8,7 @@ function valid_data($data){
     return $data;
 }
 
-if (isset($_POST['modifier']) && isset($_SESSION['login']) || isset($_POST['modif_adm'])) {
+if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
     
     $login=$_SESSION['login'];
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
@@ -44,7 +44,7 @@ elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
             if (empty($result))
             {
                 $error="Il y a une erreur de lecture de vos données!";
-                 header('Location:connexion.php');
+                
             }
             else
             {
@@ -54,13 +54,13 @@ elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
             $prenom = $result['prenom'];
             $nom = $result['nom'];
             $password = $result['password'];
-            $_POST = array(); 
+            
             }                          
 }
-elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']==$_POST['id'] ) {
+elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']==$_POST['id'] ) {
     
     $id= $_POST['id'];
-    $login = $_SESSION['login'];
+    $login = valid_data($_POST['login']);
     $prenom = valid_data($_POST['prenom']);
     $nom = valid_data($_POST['nom']);
     $new_Password = $_POST['password'];
@@ -77,13 +77,16 @@ elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']=
                 WHERE login= '".$login."' ";
                 $query = mysqli_query($db,$update);
                 /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
-               if($query){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom; header('Location:index.php');}
-                else{echo "Erreur en modifiant vos informations";}
+               if($query && isset($_POST['update'])){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom; $_SESSION['update']="Ok"; header('Location:connexion.php');}
+                elseif($query && isset($_POST['modif_admin'])){$_POST=array(); $_SESSION['login']="admin"; $_SESSION['password']="admin"; $_SESSION['update_admin']="Ok"; header('Location:admin.php');}
+               else{$error= "Erreur en modifiant vos informations";}
             }
     mysqli_close($db);
   
 }else{
-    header('Location:index.php');
+
+   $error="tous les champs doivent être remplis";
+   header('Location:profil.php');
 }
 ?>
 
@@ -138,6 +141,7 @@ elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']=
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Vérifier ou modifier votre profil </p><br/>
+                    <?php if(!empty($error)){echo $error;} ?>
                     <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
@@ -162,7 +166,8 @@ elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']=
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique">
                         </div>
                         <input type="hidden" name="id" value="<?php echo (int)$id; ?>">
-                        <button type="submit" class="btn btn-success" name="update">Modifier</button>
+                        <?php if(isset($_POST['modif_adm']) && $_SESSION['login']=="admin"){echo '<button type="submit" class="btn btn-success" name="modif_admin">Adm: Modifier</button>';}
+                        else{echo '<button type="submit" class="btn btn-success" name="update">Modifier</button>';} ?>
                     </fieldset>
                     </form>
                 </div>
