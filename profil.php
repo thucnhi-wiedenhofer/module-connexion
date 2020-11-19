@@ -8,7 +8,7 @@ function valid_data($data){
     return $data;
 }
 
-if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
+if (isset($_POST['modifier']) && isset($_SESSION['login']) || isset($_POST['modif_adm'])) {
     
     $login=$_SESSION['login'];
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
@@ -32,6 +32,30 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
             $password = $result['password'];
             $_POST = array(); 
             }                         
+}
+elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
+    $login=$_POST['modif_adm'];
+    $db=mysqli_connect("localhost","root","","moduleconnexion");    
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $requete = mysqli_query($db, $read_utilisateur);
+    $result = mysqli_fetch_array($requete);
+    mysqli_close($db);
+
+            if (empty($result))
+            {
+                $error="Il y a une erreur de lecture de vos données!";
+                 header('Location:connexion.php');
+            }
+            else
+            {
+            $_SESSION['id']=$result['id'];
+            $id= $result['id'];
+            $login = $result['login'];
+            $prenom = $result['prenom'];
+            $nom = $result['nom'];
+            $password = $result['password'];
+            $_POST = array(); 
+            }                          
 }
 elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']==$_POST['id'] ) {
     
