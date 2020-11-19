@@ -8,6 +8,8 @@ session_start();
                 $requete= "SELECT * FROM utilisateurs";
                 $query = mysqli_query($db, $requete);
                 mysqli_close($db);
+                $_SESSION['nom']="admin";
+                $_SESSION['prenom']="admin";
 
             }
             else {
