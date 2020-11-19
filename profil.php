@@ -1,23 +1,24 @@
 <?php
 session_start();
 
-if (isset($_POST['connexion']) && isset($_SESSION['id'])) {
-    
-    $id=$_SESSION['id'];
-    
-    function valid_data($data){
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
+function valid_data($data){
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
+if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
+    
+    $login=$_SESSION['login'];
+    
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
-    $read_utilisateur_id= "SELECT * FROM utilisateurs WHERE id=$id";
-    $requete = mysqli_query($db, $read_utilisateur_id);
-    $result = mysqli_fetch_assoc($requete);
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $requete = mysqli_query($db, $read_utilisateur);
+    $result = mysqli_fetch_array($requete);
+    mysqli_close($db);
 
-            if (!empty($result))
+            if (empty($result))
             {
                 $error="Il y a une erreur de lecture de vos données!";
                  header('Location:connexion.php');
@@ -29,52 +30,28 @@ if (isset($_POST['connexion']) && isset($_SESSION['id'])) {
             $nom = $result['nom'];
             $password = $result['password'];
             }
-             mysqli_close($db);
+            
            
-
-            $create="INSERT INTO utilisateurs (login, prenom, nom, password)
-                VALUES ('$login','$prenom','$nom','$password')";
-                $query = mysqli_query($db,$create);
-                header('Location:connexion.php');
-            }
-elseif (isset($_POST['modification']) && isset($_SESSION['id'])) {
-   
-            $login = valid_data($_POST["login"]);
-            if( $verify = password_verify($plaintext_password, $hash); 
-            $password = $_POST["password"];
-            $prenom = valid_data($_POST['prenom']);
-            $nom = valid_data($_POST['nom']);
-
+              
+}elseif (isset($_POST['update']) && isset($_SESSION['login'])){
     
-
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $db=mysqli_connect("localhost","root","","moduleconnexion");
-    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
-    $requete = mysqli_query($db, $read_utilisateur);
-    $result = mysqli_fetch_all($requete);
-
-            if (!empty($result))
-            {
-                $error="Ce login existe déja !";
-            }
-            elseif ($_POST['password'] != $_POST['conf-password'])
-            {
-                $error="Les mots de passe ne sont pas identiques!";
-            }
-            else
-            {
-            $create="INSERT INTO utilisateurs (login, prenom, nom, password)
-                VALUES ('$login','$prenom','$nom','$password')";
-                $query = mysqli_query($db,$create);
-                header('Location:connexion.php');
-            }
-    mysqli_close($db);
-
-}
-}
+    $login = valid_data($_POST["login"]);
+    $prenom = valid_data($_POST['prenom']);
+    $nom = valid_data($_POST['nom']);
+    $new_Password = $_POST["password"];
+    $new_Password = password_hash($new_Password, PASSWORD_DEFAULT);
+    
+   
    
 
+$db=mysqli_connect("localhost","root","","moduleconnexion");
+
+
+$update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $newNom, password = $newPassword
+ WHERE id= $id";
 }
+
+/*
 $password = password_hash($password, PASSWORD_DEFAULT);
 $login = valid_data($_POST["login"]);
     $password = $_POST["password"];
@@ -89,7 +66,7 @@ $update="UPDATE utilisateurs SET login = $newLogin, prenom = $newPrenom, nom = $
 
 $read= "SELECT * FROM utilisateurs WHERE id=$id";
 
-$delete= "DELETE FROM utitlisateurs WHERE id=$id";
+$delete= "DELETE FROM utitlisateurs WHERE id=$id";*/
 
 ?>
 
@@ -148,25 +125,25 @@ $delete= "DELETE FROM utitlisateurs WHERE id=$id";
                     <fieldset>   
                         <div class="form-group">
                         <label for="login">Login</label>
-                        <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
+                        <input type="txt" class="form-control" id="login"  name="login"  value="<?php echo $login; ?>">
                         </div>
                          <div class="form-group">
                         <label for="prenom">Prénom</label>
-                        <input type="txt" class="form-control" id="prenom"  name="prenom" placeholder="Entrer Prénom">
+                        <input type="txt" class="form-control" id="prenom"  name="prenom" value="<?php echo $prenom; ?>">
                         </div>
                          <div class="form-group">
                         <label for="Nom">Nom</label>
-                        <input type="txt" class="form-control" id="nom"  name="nom" placeholder="Entrer Nom">
+                        <input type="txt" class="form-control" id="nom"  name="nom" value="<?php echo $nom; ?>">
                         </div>
                         <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="ancien ou nouveau password">
                         </div>
                         <div class="form-group">
                         <label for="conf-password">Confirmer Password</label>
-                        <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Confirmer Password">
+                        <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique">
                         </div>
-                        <button type="submit" class="btn btn-success">Modifier</button>
+                        <button type="submit" class="btn btn-success" name="update">Modifier</button>
                     </fieldset>
                     </form>
                 </div>

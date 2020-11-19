@@ -79,7 +79,7 @@ if(isset($_POST['session_fin']))
                 <?php if(isset($_SESSION['login'])){
                     echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
-                    echo '<a href="profil.php"><button type="button" class="btn btn-primary btn-lg btn-block">Consulter</button></a>';
+                    echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
                 }else{
                     echo '<p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                      Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
