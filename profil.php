@@ -49,8 +49,8 @@ elseif (isset($_POST['update']) && isset($_SESSION['login']) && $_SESSION['id']=
             {
                 $db=mysqli_connect("localhost","root","","moduleconnexion");
                 // on update les données  de l'utilisateur dans la base moduleconnexion,table utilisateurs
-                $update= 'UPDATE utilisateurs SET id = $id, login = "$login", prenom = "$prenom", nom = "$nom", password = "$new_Password"
-                WHERE login= "$login" ';
+                $update= "UPDATE utilisateurs SET id = '$id', login = '$login', prenom = '$prenom', nom = '$nom', password = '$new_Password'
+                WHERE login= '".$login."' ";
                 $query = mysqli_query($db,$update);
                 /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
                if($query){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom; header('Location:index.php');}
