@@ -57,7 +57,7 @@ if(isset($_POST['session_fin']))
                         </form>
                         </li>';
                     } else{
-                        echo '<li class="nav-item active">
+                        echo '<li class="nav-item">
                         <a class="nav-link" href="connexion.php">Connexion</a>
                         <span class="sr-only">(current)</span>
                     </li>
@@ -75,13 +75,18 @@ if(isset($_POST['session_fin']))
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-               
-                    <p class="h5">Vous n'avez pas d'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
-                     Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
-                    <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
-                    <p class="h4">ou</p><br/>
-                    <a href="inscription.php"><button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button></a>
-                
+                <?php  if(isset($_SESSION['login']))
+                    {
+                        echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p>';
+                    }else{
+                        echo ' <p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
+                        Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
+                       <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
+                       <p class="h4">ou</p><br/>
+                       <a href="inscription.php"><button type="button" class="btn btn-primary btn-lg btn-block">Inscrivez-vous</button></a>';
+                    }
+
+                    ?>
                     
                 </div>
             </div>
