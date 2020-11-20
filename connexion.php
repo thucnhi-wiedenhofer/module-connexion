@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+//déconnexion
 if(isset($_POST['session_fin']))
 {
     //enlève les variables de la session
@@ -10,7 +12,7 @@ if(isset($_POST['session_fin']))
 
 /*routine de validation des données*/
 
-
+//connexion en tant que membre:
  if (isset($_POST['connexion'])) {
     function valid_data($data){
                 $data = trim($data);/*enlève les espaces en début et fin de chaîne*/
@@ -30,7 +32,7 @@ if(isset($_POST['session_fin']))
     $requete = mysqli_query($db, $read_utilisateur);
     $result = mysqli_fetch_all($requete);
     
-            if (empty($result))
+            if (empty($result))//champs vide
             {
                 $error="Ce login n'existe pas!";
             }
@@ -41,12 +43,13 @@ if(isset($_POST['session_fin']))
                     $_SESSION['prenom']=$result[0][2];
                    
                 } 
-            else 
+            else //si password différent
                 {
                     $error='Le mot de passe est invalide.';
                     mysqli_close($db);
                 }
 }
+//connexion en tant qu'administrateur:
 elseif(isset($_POST['administration'])) {
     
             if ($_POST['login']=="admin" && $_POST['password']=="admin"){
@@ -100,7 +103,7 @@ elseif(isset($_POST['administration'])) {
                     
                     </a>
                 </li>
-                <?php  if(isset($_SESSION['login']) && !empty($_SESSION['login']))
+                <?php  if(isset($_SESSION['login']) && !empty($_SESSION['login']))//message de connexion dans la navbar et bouton de déconnexion
                     {
                         echo '<li class="nav-item active align-right">
                         <span class="nav-link">Vous êtes connecté(e)</span>    
@@ -110,7 +113,7 @@ elseif(isset($_POST['administration'])) {
                             <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
                         </form>
                         </li>';
-                    } else{
+                    } else{//si on est pas connecté:
                         echo '<li class="nav-item active">
                         <a class="nav-link" href="connexion.php">Connexion</a>
                         <span class="sr-only">(current)</span>
@@ -129,15 +132,17 @@ elseif(isset($_POST['administration'])) {
                 
                 <div class="col-lg-6 col-sm-12"><br/>
                 <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" && !isset($_SESSION['update'])){
+                    //connexion valide de l'utilisateur avec mot de passe avant modification 
                     echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                     echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
                     }
                     elseif(isset($_SESSION['login']) && $_SESSION['login']!="admin" && $_SESSION['update']="Ok"){
+                        //connexion valide de l'utilisateur après modification valide
                         echo '<h2>Espace membres</h2>';
                         echo '<p class="h5">Vos informations ont bien été modifiées.</p>';
                     }
-                    else{
+                    else{ //premier accès à la page ou  erreur de l'utilisateur qui doit se reconnecter
                         echo '<h2>Espace membres</h2>
                         <form action="connexion.php" method="post">
                             <fieldset>';
@@ -169,10 +174,11 @@ elseif(isset($_POST['administration'])) {
             </div>
         </main>
         
-        <?php if(!isset($_SESSION['login'])){
+        <?php if(!isset($_SESSION['login'])){//si connexion valide, pas de formulaire administrateur qui s'affiche
             echo '<article class="jumbotron">  
             <h2>Administration</h2> ';
              if(isset($error_adm)){echo '<p class="h4 text-warning">'.$error_adm.'</p>'; }
+             //connexion invalide en tant qu'administrateur,message erreur ,doit se reconnecter
             echo '<form action="connexion.php" method="post"> 
                 <fieldset>
                     <div class="row">    

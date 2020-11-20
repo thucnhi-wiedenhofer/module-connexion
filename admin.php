@@ -108,7 +108,7 @@ session_start();
                     </thead>
                     <tbody>
                     <?php
-                        echo "<tr>";
+                        echo "<tr>";//affiche en boucle les données de la table
                         while (($resultats = mysqli_fetch_assoc($query)) != null)
                         {
                             echo "<td>".$resultats['id']."</td>";

@@ -17,7 +17,7 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui
     $result = mysqli_fetch_array($requete);
     mysqli_close($db);
 
-            if (empty($result)) //la requéte n'a pas aboutie
+            if (empty($result)) //la requête n'a pas aboutie
             {
                 $error="Il y a une erreur de lecture de vos données!";
                  
@@ -138,7 +138,8 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Vérifier ou modifier votre profil </p><br/>
-                   <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?> 
+                   <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } //affiche message d'erreur généré dans le script profil.php
+                   ?> 
                     <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
@@ -162,9 +163,9 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
                         <label for="conf-password">Confirmer Password</label>
                         <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique" required>
                         </div>
-                        <input type="hidden" name="id" value="<?php echo (int)$id; ?>">
-                        <?php if(isset($_POST['modif_adm']) && $_SESSION['login']=="admin"){echo '<button type="submit" class="btn btn-success" name="modif_admin">Adm: Modifier</button>';}
-                        else{echo '<button type="submit" class="btn btn-success" name="update">Modifier</button>';} ?>
+                        <input type="hidden" name="id" value="<?php echo (int)$id;// conserve la valeur id dans un champs caché du formulaire
+                        ?>">
+                        <button type="submit" class="btn btn-success" name="update">Modifier</button>
                     </fieldset>
                     </form>
                 </div>

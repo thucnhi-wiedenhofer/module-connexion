@@ -48,7 +48,7 @@ if(isset($_POST['session_fin']))
                     </a>
                 </li>
                 
-                <?php  if(isset($_SESSION['login'])) //message de connexion dans la navbar
+                <?php  if(isset($_SESSION['login'])) //message de connexion dans la navbar et bouton de déconnexion
                     {
                         echo '<li class="nav-item active align-right">
                         <span class="nav-link">Vous êtes connecté(e)</span>    
@@ -61,7 +61,7 @@ if(isset($_POST['session_fin']))
                     } else{
                         echo '<li class="nav-item">
                         <a class="nav-link" href="connexion.php">Connexion</a>
-                        <span class="sr-only">(current)</span>
+                        
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="inscription.php">Inscription</a>
@@ -77,12 +77,12 @@ if(isset($_POST['session_fin']))
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")//page de connexion en tant qu'utilisateur
+                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")//bloc quand l'utilisateur est connecté
                     {
                         echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
                         echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                         echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
-                        //page de connexion en tant qu'administrateur:
+                        //bloc quand l'administrateur est connecté:
                     }elseif(isset($_SESSION['login']) && $_SESSION['login']=="admin"){
                         echo '<p class="h5">Pour vérifier ou modifier les informations des adhérents:</p>';
                         echo '<a href="admin.php"><button type="submit" class="btn btn-primary btn-lg btn-block">Administrer Membres</button></a>';
