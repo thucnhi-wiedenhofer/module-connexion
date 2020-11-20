@@ -128,7 +128,7 @@ elseif(isset($_POST['administration'])) {
             <div class="row">
                 
                 <div class="col-lg-6 col-sm-12"><br/>
-                <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" ){
+                <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" && !isset($_SESSION['update'])){
                     echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                     echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
