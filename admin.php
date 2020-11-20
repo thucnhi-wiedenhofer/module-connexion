@@ -132,7 +132,7 @@ session_start();
             <ul class="list-unstyled">
               <li class="float-lg-right"><a href="#top">Back to top</a></li>
               
-              <li><a href="https://github.com/thomaspark/bootswatch">GitHub</a></li>
+              <li><a href="https://github.com/thucnhi-wiedenhofer">GitHub</a></li>
               
             </ul>
             <p>Bootstrap style made by <a href="https://thomaspark.co/">Thomas Park</a>.</p>

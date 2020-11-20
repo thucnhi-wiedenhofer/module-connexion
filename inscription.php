@@ -112,12 +112,13 @@ if(isset($_SESSION) && !empty($_SESSION)){
                         </form>
                         </li>';
                     } else{
-                        echo '<li class="nav-item active">
+                        echo '<li class="nav-item">
                         <a class="nav-link" href="connexion.php">Connexion</a>
-                        <span class="sr-only">(current)</span>
+                        
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item  active">
                         <a class="nav-link" href="inscription.php">Inscription</a>
+                        <span class="sr-only">(current)</span>
                     </li>';
                     }
                     ?>
@@ -169,7 +170,7 @@ if(isset($_SESSION) && !empty($_SESSION)){
             <ul class="list-unstyled">
               <li class="float-lg-right"><a href="#top">Back to top</a></li>
               
-              <li><a href="https://github.com/thomaspark/bootswatch">GitHub</a></li>
+              <li><a href="https://github.com/thucnhi-wiedenhofer">GitHub</a></li>
               
             </ul>
             <p>Bootstrap style made by <a href="https://thomaspark.co/">Thomas Park</a>.</p>
