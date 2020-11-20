@@ -75,7 +75,7 @@ if(isset($_POST['session_fin']))
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-                <?php  if(isset($_SESSION['login']))
+                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")
                     {
                         echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
                         echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';

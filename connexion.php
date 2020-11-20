@@ -169,29 +169,32 @@ elseif(isset($_POST['administration'])) {
             </div>
         </main>
         
-            <article class="jumbotron">  
-                <h2>Administration</h2> 
-                 <?php if(isset($error_adm)){echo '<p class="h4 text-warning">'.$error_adm.'</p>'; } ?>
-                <form action="connexion.php" method="post"> 
-                    <fieldset>
-                        <div class="row">    
-                            <div class="form-group col-lg-4 col-sm-12">
-                            <label for="login">Login</label>
-                            <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
-                            </div>
-                                                
-                            <div class="form-group col-lg-4 col-sm-12">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="form-group col-lg-12 col-sm-12">
-                            
-                            <button type="submit" class="btn btn-info" name="administration">Connexion</button>
-                            </div>
+        <?php if(!isset($_SESSION['login'])){
+            echo '<article class="jumbotron">  
+            <h2>Administration</h2> ';
+             if(isset($error_adm)){echo '<p class="h4 text-warning">'.$error_adm.'</p>'; }
+            echo '<form action="connexion.php" method="post"> 
+                <fieldset>
+                    <div class="row">    
+                        <div class="form-group col-lg-4 col-sm-12">
+                        <label for="login">Login</label>
+                        <input type="txt" class="form-control" id="login"  name="login" placeholder="Entrer Login">
                         </div>
-                    </fieldset>
-                </form>
-            </article>        
+                                            
+                        <div class="form-group col-lg-4 col-sm-12">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group col-lg-12 col-sm-12">
+                        
+                        <button type="submit" class="btn btn-info" name="administration">Connexion</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </article> ';
+        }
+         ?>   
                              
         
         <footer id="footer">
