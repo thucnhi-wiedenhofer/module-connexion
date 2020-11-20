@@ -4,7 +4,7 @@ session_start();
 
 
 /*routine de validation des données*/
-if(isset($_SESSION)){
+if(isset($_SESSION) && !empty($_SESSION)){
     header('location:connexion.php');
 }
 
