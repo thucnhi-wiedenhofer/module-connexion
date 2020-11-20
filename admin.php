@@ -103,7 +103,7 @@ session_start();
                         <th scope="col">Prénom</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Password</th>
-                        <th scope="col">Action</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -116,10 +116,7 @@ session_start();
                             echo "<td>".$resultats['prenom']."</td>";
                             echo "<td>".$resultats['nom']."</td>";
                             echo "<td>".$resultats['password']."</td>";
-                            if($resultats['login']!="admin"){
-                            echo '<td><form action="profil.php" method="post"><button type="submit" class="btn btn-info btn-sm" value="'.$resultats["login"].'" name="modif_adm">Modifier</button></form></td>';
-                            }
-                            
+                           
                         echo "</tr>";
                         }
                     ?>  
