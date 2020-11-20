@@ -1,5 +1,6 @@
 <?php
 session_start();
+//déconnexion
 if(isset($_POST['session_fin']))
 {
     //enlève les variables de la session
@@ -46,7 +47,8 @@ if(isset($_POST['session_fin']))
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <?php  if(isset($_SESSION['login']))
+                
+                <?php  if(isset($_SESSION['login'])) //message de connexion dans la navbar
                     {
                         echo '<li class="nav-item active align-right">
                         <span class="nav-link">Vous êtes connecté(e)</span>    
@@ -75,17 +77,18 @@ if(isset($_POST['session_fin']))
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
                 </div>
                 <div class="col-lg-6 col-sm-12"><br/>
-                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")
+                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")//page de connexion en tant qu'utilisateur
                     {
                         echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
                         echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                         echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
+                        //page de connexion en tant qu'administrateur:
                     }elseif(isset($_SESSION['login']) && $_SESSION['login']=="admin"){
                         echo '<p class="h5">Pour vérifier ou modifier les informations des adhérents:</p>';
                         echo '<a href="admin.php"><button type="submit" class="btn btn-primary btn-lg btn-block">Administrer Membres</button></a>';
                     }
                     
-                    
+                    //page avant connexion ou inscription:
                     else{
                         echo ' <p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                         Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
