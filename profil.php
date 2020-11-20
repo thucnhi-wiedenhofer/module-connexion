@@ -22,7 +22,7 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui
                 $error="Il y a une erreur de lecture de vos données!";
                  
             }
-            else //succés on conserve dans des variables les infos de l'adhérent
+            else //succés on conserve dans des variables les infos de l'adhérent pour remplir le formulaire
             {
             $_SESSION['id']=$result['id'];
             $id= $result['id'];
@@ -33,31 +33,8 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui
             $_POST = array(); 
             }                         
 }
-elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){ //l'administrateur qui est connecté veut modifier les données d'un adhérent
-    $login=$_POST['modif_adm']; // le $_post du crud administration contient le login de l'adhérent
-    $db=mysqli_connect("localhost","root","","moduleconnexion");    //récupére les infos de l'adhérent
-    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
-    $requete = mysqli_query($db, $read_utilisateur);
-    $result = mysqli_fetch_array($requete);
-    mysqli_close($db);
 
-            if (empty($result))
-            {
-                $error="Il y a une erreur de lecture des données!"; //la requéte n'a pas aboutie
-                
-            }
-            else //succés on conserve dans des variables les infos de l'adhérent
-            {
-           
-            $id= $result['id'];
-            $login = $result['login'];
-            $prenom = $result['prenom'];
-            $nom = $result['nom'];
-            $password = $result['password'];
-            
-            }                          
-}
-elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']==$_POST['id'] ) { //l'adhérent ou l'administrateur ont modifié des données, on conserve en variables ces nouvelles données
+elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhérent a modifié ses données, on conserve en variables ces nouvelles données
     
     $id= $_POST['id'];
     $login = valid_data($_POST['login']);
@@ -77,7 +54,7 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
                 $update= "UPDATE utilisateurs SET id = '$id', login = '$login', prenom = '$prenom', nom = '$nom', password = '$new_Password'
                 WHERE login= '".$login."' ";
                 $query = mysqli_query($db,$update);
-                /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
+                /* on attribue les nouvelles valeurs au tableau session si la requéte a fonctionné*/
                if($query && isset($_POST['update']))
                {$_SESSION['login']=$login;
                 $_SESSION['nom']=$nom;
@@ -85,12 +62,7 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
                 $_SESSION['update']="Ok";
                 header('Location:connexion.php');
                 }
-                elseif($query && isset($_POST['modif_admin'])){
-                $_SESSION['login']="admin";
-                $_SESSION['password']="admin";
-                $_SESSION['update_admin']="Ok";
-                 header('Location:admin.php');}
-                elseif(empty($query)){$error= "Erreur en modifiant les informations"; header('Location:admin.php');}
+                
             }
    
   
