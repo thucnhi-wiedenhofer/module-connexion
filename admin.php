@@ -68,25 +68,27 @@ session_start();
                     <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="connexion.php">Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inscription.php">Inscription</a>
-                </li>
-                <?php 
-                if(isset($_SESSION['login']) AND $_SESSION['login']=="admin")
-                {
-                    echo '<li class="nav-item active align-right">
-                    <span class="nav-link">Vous êtes connecté(e)</span>    
+                <?php  if(isset($_SESSION['login']) && $_SESSION['login']=="admin")
+                    {
+                        echo '<li class="nav-item active align-right">
+                        <span class="nav-link">Vous êtes connecté(e)</span>    
+                        </li>';
+                        echo '<li class="nav-item align-right">
+                        <form action="connexion.php" method="post">                                            
+                            <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
+                        </form>
+                        </li>';
+                    } else{
+                        echo '<li class="nav-item active">
+                        <a class="nav-link" href="connexion.php">Connexion</a>
+                        <span class="sr-only">(current)</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inscription.php">Inscription</a>
                     </li>';
-                    echo '<li class="nav-item align-right">
-                    <form action="index.php" method="post">                                            
-                        <button type="submit" class="btn btn-info" name="session_fin">Déconnexion</button><br/>                        
-                    </form>
-                    </li>';
-                }
-                ?>
+                    }
+                    ?>
+               
                 </ul>  
             </div>
         </nav>

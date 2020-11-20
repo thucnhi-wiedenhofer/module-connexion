@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-function valid_data($data){
+function valid_data($data){  //fonction pour éviter l'injection de code malveillant
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
-if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
+if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui s'est connecté veut modifier ses données
     
     $login=$_SESSION['login'];
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
@@ -17,12 +17,12 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
     $result = mysqli_fetch_array($requete);
     mysqli_close($db);
 
-            if (empty($result))
+            if (empty($result)) //la requéte n'a pas aboutie
             {
                 $error="Il y a une erreur de lecture de vos données!";
-                 header('Location:connexion.php');
+                 
             }
-            else
+            else //succés on conserve dans des variables les infos de l'adhérent
             {
             $_SESSION['id']=$result['id'];
             $id= $result['id'];
@@ -33,9 +33,9 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) {
             $_POST = array(); 
             }                         
 }
-elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
-    $login=$_POST['modif_adm'];
-    $db=mysqli_connect("localhost","root","","moduleconnexion");    
+elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){ //l'administrateur qui est connecté veut modifier les données d'un adhérent
+    $login=$_POST['modif_adm']; // le $_post du crud administration contient le login de l'adhérent
+    $db=mysqli_connect("localhost","root","","moduleconnexion");    //récupére les infos de l'adhérent
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
     $requete = mysqli_query($db, $read_utilisateur);
     $result = mysqli_fetch_array($requete);
@@ -43,12 +43,12 @@ elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
 
             if (empty($result))
             {
-                $error="Il y a une erreur de lecture de vos données!";
+                $error="Il y a une erreur de lecture des données!"; //la requéte n'a pas aboutie
                 
             }
-            else
+            else //succés on conserve dans des variables les infos de l'adhérent
             {
-            $_SESSION['id']=$result['id'];
+           
             $id= $result['id'];
             $login = $result['login'];
             $prenom = $result['prenom'];
@@ -57,7 +57,7 @@ elseif(isset($_POST['modif_adm']) && !empty($_POST['modif_adm'])){
             
             }                          
 }
-elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']==$_POST['id'] ) {
+elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']==$_POST['id'] ) { //l'adhérent ou l'administrateur ont modifié des données, on conserve en variables ces nouvelles données
     
     $id= $_POST['id'];
     $login = valid_data($_POST['login']);
@@ -67,7 +67,8 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
     $new_Password = password_hash($new_Password, PASSWORD_DEFAULT);
 
     if ($_POST['password'] != $_POST['conf-password']){
-                $error="Les mots de passe ne sont pas identiques!";
+                $error="Les mots de passe ne sont pas identiques!"; //erreur dans le formulaire
+            
             }
             else
             {
@@ -77,16 +78,26 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
                 WHERE login= '".$login."' ";
                 $query = mysqli_query($db,$update);
                 /* on attribue une valeur login au tableau session si la requéte a fonctionné*/
-               if($query && isset($_POST['update'])){$_SESSION['login']=$login; $_SESSION['nom']=$nom; $_SESSION['prenom']=$prenom; $_SESSION['update']="Ok"; header('Location:connexion.php');}
-                elseif($query && isset($_POST['modif_admin'])){$_POST=array(); $_SESSION['login']="admin"; $_SESSION['password']="admin"; $_SESSION['update_admin']="Ok"; header('Location:admin.php');}
-               else{$error= "Erreur en modifiant vos informations";}
+               if($query && isset($_POST['update']))
+               {$_SESSION['login']=$login;
+                $_SESSION['nom']=$nom;
+                $_SESSION['prenom']=$prenom;
+                $_SESSION['update']="Ok";
+                header('Location:connexion.php');
+                }
+                elseif($query && isset($_POST['modif_admin'])){
+                $_SESSION['login']="admin";
+                $_SESSION['password']="admin";
+                $_SESSION['update_admin']="Ok";
+                 header('Location:admin.php');}
+                elseif(empty($query)){$error= "Erreur en modifiant les informations"; header('Location:admin.php');}
             }
-    mysqli_close($db);
+   
   
 }else{
 
    $error="tous les champs doivent être remplis";
-   header('Location:profil.php');
+   
 }
 ?>
 
@@ -141,7 +152,7 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
             <div class="row">
                 <div class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Vérifier ou modifier votre profil </p><br/>
-                    <?php if(!empty($error)){echo $error;} ?>
+                   <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } ?> 
                     <form action="profil.php" method="post">
                     <fieldset>   
                         <div class="form-group">
@@ -159,11 +170,11 @@ elseif (isset($_POST['update']) && !empty($_POST['password']) && $_SESSION['id']
                         </div>
                         <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre password ou un nouveau.">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Entrez votre password ou un nouveau." required>
                         </div>
                         <div class="form-group">
                         <label for="conf-password">Confirmer Password</label>
-                        <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique">
+                        <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Doit être identique" required>
                         </div>
                         <input type="hidden" name="id" value="<?php echo (int)$id; ?>">
                         <?php if(isset($_POST['modif_adm']) && $_SESSION['login']=="admin"){echo '<button type="submit" class="btn btn-success" name="modif_admin">Adm: Modifier</button>';}
