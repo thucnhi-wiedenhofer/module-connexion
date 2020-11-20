@@ -77,7 +77,9 @@ if(isset($_POST['session_fin']))
                 <div class="col-lg-6 col-sm-12"><br/>
                 <?php  if(isset($_SESSION['login']))
                     {
-                        echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p>';
+                        echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
+                        echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
+                        echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
                     }else{
                         echo ' <p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                         Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
