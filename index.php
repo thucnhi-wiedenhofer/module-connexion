@@ -80,7 +80,13 @@ if(isset($_POST['session_fin']))
                         echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
                         echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
                         echo '<form action="profil.php" method="post"><button type="submit" class="btn btn-primary btn-lg btn-block" name="modifier">Consulter</button></form>';
-                    }else{
+                    }elseif($_SESSION['login']=="admin"){
+                        echo '<p class="h5">Pour vérifier ou modifier les informations des adhérents:</p>';
+                        echo '<a href="admin.php"><button type="submit" class="btn btn-primary btn-lg btn-block">Administrer Membres</button></a>';
+                    }
+                    
+                    
+                    else{
                         echo ' <p class="h5">Vous n\'avez pas d\'idée pour ce soir? <br/>Consultez et échangez vos recettes entre membres.<br/>
                         Pour accéder à notre espace abonné, veuillez-vous connecter.</p><br/>
                        <a href="connexion.php"><button type="button" class="btn btn-success btn-lg">Connexion</button><br/><br/></a>
