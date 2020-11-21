@@ -84,7 +84,7 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
 </head>
 <body>
     <div class="container">
-        <div class="page-header" >
+        <header class="page-header" >
         
             <div id="banner">
                 <div class="row">
@@ -97,7 +97,7 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
                 </div>
             </div>
             
-        </div>
+        </header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,7 +136,7 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
         </nav>
         <main class="jumbotron">
             <div class="row">
-                <div class="col-lg-6 col-sm-12"><br/>
+                <section class="col-lg-6 col-sm-12"><br/>
                     <p class="h4">Vérifier ou modifier votre profil </p><br/>
                    <?php if(!empty($error)){echo '<p class="h4 text-warning">'.$error.'</p>'; } //affiche message d'erreur généré dans le script profil.php
                    ?> 
@@ -168,11 +168,11 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
                         <button type="submit" class="btn btn-success" name="update">Modifier</button>
                     </fieldset>
                     </form>
-                </div>
+                </section>
                 
-                <div class="col-lg-6 col-sm-12">
+                <section class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/moules.jpg" alt="moules">
-                </div>
+                </section>
                 
             </div>
         </main>

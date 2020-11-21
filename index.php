@@ -20,7 +20,7 @@ if(isset($_POST['session_fin']))
 </head>
 <body>
     <div class="container">
-        <div class="page-header" >
+        <header class="page-header" >
         
             <div id="banner">
                 <div class="row">
@@ -33,7 +33,7 @@ if(isset($_POST['session_fin']))
                 </div>
             </div>
             
-        </div>
+        </header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,11 +73,11 @@ if(isset($_POST['session_fin']))
         </nav>
         <main class="jumbotron">
             <div class="row">
-                <div class="col-lg-6 col-sm-12">
+                <section class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/bol.jpg" alt="bol">
-                </div>
-                <div class="col-lg-6 col-sm-12"><br/>
-                <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")//bloc quand l'utilisateur est connecté
+                </section>
+                <section class="col-lg-6 col-sm-12"><br/>
+                    <?php  if(isset($_SESSION['login']) && $_SESSION['login']!="admin")//bloc quand l'utilisateur est connecté
                     {
                         echo '<p class="h5">Vous pouvez dès à présent partager vos recettes et consulter celles des autres membres.</p><br />';
                         echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
@@ -99,7 +99,7 @@ if(isset($_POST['session_fin']))
 
                     ?>
                     
-                </div>
+                </section>
             </div>
         </main>
         <footer id="footer">

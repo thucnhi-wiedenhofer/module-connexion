@@ -41,7 +41,7 @@ session_start();
 </head>
 <body>
     <div class="container">
-        <div class="page-header" >
+        <header class="page-header" >
         
             <div id="banner">
                 <div class="row">
@@ -54,7 +54,7 @@ session_start();
                 </div>
             </div>
             
-        </div>
+        </header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,8 +94,8 @@ session_start();
         </nav>
         <main class="jumbotron">
             <div class="row">
-                <div class="col-lg-12"><br/>
-                <table class="table table-hover">
+                <section class="col-lg-12"><br/>
+                    <table class="table table-hover">
                     <thead>
                         <tr class="table-active">
                         <th scope="col">ID</th>
@@ -122,7 +122,7 @@ session_start();
                     ?>  
                     </tbody>
                     </table>
-                </div>
+                    </section>
                 
             </div>
         </main>

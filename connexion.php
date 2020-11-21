@@ -76,7 +76,7 @@ elseif(isset($_POST['administration'])) {
 </head>
 <body>
     <div class="container">
-        <div class="page-header" >
+        <header class="page-header" >
         
             <div id="banner">
                 <div class="row">
@@ -89,7 +89,7 @@ elseif(isset($_POST['administration'])) {
                 </div>
             </div>
             
-        </div>
+        </header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,8 +130,8 @@ elseif(isset($_POST['administration'])) {
         <main class="jumbotron">
             <div class="row">
                 
-                <div class="col-lg-6 col-sm-12"><br/>
-                <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" && !isset($_SESSION['update'])){
+                <section class="col-lg-6 col-sm-12"><br/>
+                    <?php if(isset($_SESSION['login']) && $_SESSION['login']!="admin" && !isset($_SESSION['update'])){
                     //connexion valide de l'utilisateur avec mot de passe avant modification 
                     echo '<p class="h4"> Bonjour '.$_SESSION['prenom'].' '.$_SESSION['nom'].'.</p><br />';
                     echo '<p class="h5">Pour vérifier ou modifier vos informations:</p>';
@@ -166,10 +166,10 @@ elseif(isset($_POST['administration'])) {
                     }
                     ?>
                     
-                </div>
-                <div class="col-lg-6 col-sm-12">
+                </section>
+                <section class="col-lg-6 col-sm-12">
                     <img class="img-small" src="assets/images/plat.jpg" alt="plat">
-                </div>
+                </section>
 
             </div>
         </main>
