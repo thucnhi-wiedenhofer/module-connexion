@@ -38,6 +38,7 @@ if(isset($_POST['session_fin']))
             }
             elseif (password_verify($password, $result[0][4]))//vérification de password
                 { 
+                    $_SESSION['id']=$result[0][0];
                     $_SESSION['login']=$result[0][1];
                     $_SESSION['nom']=$result[0][3];
                     $_SESSION['prenom']=$result[0][2];
