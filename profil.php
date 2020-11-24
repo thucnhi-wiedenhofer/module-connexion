@@ -8,11 +8,11 @@ function valid_data($data){  //fonction pour éviter l'injection de code malveil
     return $data;
 }
 
-if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui s'est connecté veut modifier ses données
+if (isset($_POST['modifier']) && isset($_SESSION['id'])) { //un adhérent qui s'est connecté veut modifier ses données
     
-    $login=$_SESSION['login'];
+    $id=$_SESSION['id'];
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
-    $read_utilisateur= "SELECT * FROM utilisateurs WHERE login='$login'";
+    $read_utilisateur= "SELECT * FROM utilisateurs WHERE id='$id'";
     $requete = mysqli_query($db, $read_utilisateur);
     $result = mysqli_fetch_array($requete);
     mysqli_close($db);
@@ -24,8 +24,6 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui
             }
             else //succés on conserve dans des variables les infos de l'adhérent pour remplir le formulaire
             {
-            $_SESSION['id']=$result['id'];
-            $id= $result['id'];
             $login = $result['login'];
             $prenom = $result['prenom'];
             $nom = $result['nom'];
@@ -36,7 +34,7 @@ if (isset($_POST['modifier']) && isset($_SESSION['login'])) { //un adhérent qui
 
 elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhérent a modifié ses données, on conserve en variables ces nouvelles données
     
-    $id= $_POST['id'];
+    $id= $_SESSION['id'];
     $login = valid_data($_POST['login']);
     $prenom = valid_data($_POST['prenom']);
     $nom = valid_data($_POST['nom']);
@@ -51,8 +49,8 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
             {
                 $db=mysqli_connect("localhost","root","","moduleconnexion");
                 // on update les données  de l'utilisateur dans la base moduleconnexion,table utilisateurs
-                $update= "UPDATE utilisateurs SET id = '$id', login = '$login', prenom = '$prenom', nom = '$nom', password = '$new_Password'
-                WHERE login= '".$login."' ";
+                $update= "UPDATE utilisateurs SET  login = '$login', prenom = '$prenom', nom = '$nom', password = '$new_Password'
+                WHERE id= '".$id."' ";
                 $query = mysqli_query($db,$update);
                 /* on attribue les nouvelles valeurs au tableau session si la requéte a fonctionné*/
                if($query && isset($_POST['update']))
@@ -69,7 +67,7 @@ elseif (isset($_POST['update']) && $_SESSION['id']==$_POST['id'] ) { //l'adhére
 }else{
 
    $error="tous les champs doivent être remplis";
-   
+   header('Location:connexion.php');
 }
 ?>
 
