@@ -9,7 +9,7 @@ function valid_data($data){  //fonction pour éviter l'injection de code malveil
 }
 
 if (isset($_POST['modifier']) && isset($_SESSION['id'])) { //un adhérent qui s'est connecté veut modifier ses données
-    
+    //on fait la requête sur la seul donnée qui ne change pas:id.
     $id=$_SESSION['id'];
     $db=mysqli_connect("localhost","root","","moduleconnexion");    
     $read_utilisateur= "SELECT * FROM utilisateurs WHERE id='$id'";
